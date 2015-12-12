@@ -77,6 +77,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'AccountCtrl'
       }
     }
+  })
+
+  .state('tab.photo', {
+    url: '/photo',
+    views: {
+      'tab-photo': {
+        templateUrl: 'templates/tab-photo.html',
+        controller: 'PhotoCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback
