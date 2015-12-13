@@ -65,5 +65,5 @@ angular.module('starter.services', [])
 
       return q.promise;
     }
-  }
+  };
 }]);
