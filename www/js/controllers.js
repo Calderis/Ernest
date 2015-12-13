@@ -56,7 +56,7 @@ angular.module('starter.controllers', [])
       destinationType: 0
     }).then(function(imageData) {
       $ionicLoading.show({
-        'template': "Chargement..."
+        'template': "Analyse de l'image..."
       });
       $scope.pictureBlob = dataURItoBlob("data:image/jpeg;base64," + imageData);
 
@@ -107,9 +107,17 @@ angular.module('starter.controllers', [])
       .done(function(res) {
         $ionicLoading.hide();
         var response = $.parseJSON(res);
-        $scope.showAlert(JSON.stringify(response)); 
-        if (response.results.length == 0) {
+        if (response.results.length === 0) {
           $scope.showAlert("Cette oeuvre n'est malheureusement pas un chef d'oeuvre", "Désolé");
+        } else {
+          $scope.higherScore = 0;
+          for (var i = response.results.length - 1; i >= 0; i--) {
+            // If the picture's score is higher
+            if(response.results[i].score > $scope.higherScore) {
+              $scope.detectedPainting = response.results[i].item;
+            }
+          }
+          $scope.showAlert('Bravo, vous avez trouvé ' + $scope.detectedPainting.name, "Chef d'oeuvre détecté"); 
         }
       });
     });
